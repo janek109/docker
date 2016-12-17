@@ -48,17 +48,17 @@ echo mysql-server-5.6 mysql-server/root_password_again password root | debconf-s
 
 # Install MySQL.
 RUN \
-  apt-get update && \
-  DEBIAN_FRONTEND=noninteractive apt-get install -f -y mysql-server-5.6 && \
-  rm -rf /var/lib/apt/lists/* && \
-  sed -i 's/^\(bind-address\s.*\)/# \1/' /etc/mysql/my.cnf && \
-  sed -i 's/^\(log_error\s.*\)/# \1/' /etc/mysql/my.cnf && \
-  echo "mysqld_safe &" > /tmp/config && \
-  echo "mysqladmin --silent --wait=30 ping || exit 1" >> /tmp/config && \
-  echo "mysql -e 'GRANT ALL PRIVILEGES ON *.* TO \"root\"@\"%\" WITH GRANT OPTION;'" >> /tmp/config && \
-  echo "mysql -e 'SET PASSWORD FOR \"root\"@\"localhost\" = PASSWORD(\"root\"); SET PASSWORD FOR \"root\"@\"127.0.0.1\" = PASSWORD(\"root\"); SET PASSWORD FOR \"root\"@\"%\" = PASSWORD(\"root\"); SET PASSWORD FOR \"root\"@\"::1\" = PASSWORD(\"root\"); SET PASSWORD FOR \"root\"@\"%\" = PASSWORD(\"root\");'" >> /tmp/config && \
-  bash /tmp/config && \
-  rm -f /tmp/config
+apt-get update && \
+DEBIAN_FRONTEND=noninteractive apt-get install -f -y mysql-server-5.6 && \
+rm -rf /var/lib/apt/lists/* && \
+sed -i 's/^\(bind-address\s.*\)/# \1/' /etc/mysql/my.cnf && \
+sed -i 's/^\(log_error\s.*\)/# \1/' /etc/mysql/my.cnf && \
+echo "mysqld_safe &" > /tmp/config && \
+echo "mysqladmin --silent --wait=30 ping || exit 1" >> /tmp/config && \
+echo "mysql -e 'GRANT ALL PRIVILEGES ON *.* TO \"root\"@\"%\" WITH GRANT OPTION;'" >> /tmp/config && \
+echo "mysql -e 'SET PASSWORD FOR \"root\"@\"localhost\" = PASSWORD(\"root\"); SET PASSWORD FOR \"root\"@\"127.0.0.1\" = PASSWORD(\"root\"); SET PASSWORD FOR \"root\"@\"%\" = PASSWORD(\"root\"); SET PASSWORD FOR \"root\"@\"::1\" = PASSWORD(\"root\"); SET PASSWORD FOR \"root\"@\"%\" = PASSWORD(\"root\");'" >> /tmp/config && \
+bash /tmp/config && \
+rm -f /tmp/config
 
 # clean
 RUN \
