@@ -1,8 +1,8 @@
 FROM debian:8.5
 
 # how to
-#docker build -t janek109/cs .
-#docker run --name cs -d -p 6379:6379 -p 3306:3306 janek109/cs
+#docker build -t janek109/base .
+#docker run --name cs -d -p 6379:6379 -p 3306:3306 janek109/base
 
 #install basic
 RUN \
